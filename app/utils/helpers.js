@@ -12,10 +12,19 @@ axios.defaults.baseURL = 'https://api.particle.io';
   "connected": true,
   "return_value": 1
 }*/
+
 export function setVoxel(device, token, x, y, z, r, g, b) {
   axios.post(`/v1/devices/${device}/setVoxel`, querystring.stringify({
     access_token: token,
     params: [x, y, z, r, g, b].join(','),
+  })).then((todo) => log.info('posted.', todo)
+  ).catch((error) => log.error('error', error));
+}
+
+export function background(device, token, r, g, b) {
+  axios.post(`/v1/devices/${device}/background`, querystring.stringify({
+    access_token: token,
+    params: [r, g, b].join(','),
   })).then((todo) => log.info('posted.', todo)
   ).catch((error) => log.error('error', error));
 }

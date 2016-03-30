@@ -4,12 +4,16 @@ const THREE = require('three');
 
 const helpers = require('../utils/helpers');
 
+let device = localStorage.getItem('device') || '';
+let token = localStorage.getItem('token') || '';
+
 export default class Main extends React.Component {
   constructor() {
     super();
     this.setVoxel = this.setVoxel.bind(this);
     this.unsetVoxel = this.unsetVoxel.bind(this);
     this.save = this.save.bind(this);
+    this.clear = this.clear.bind(this);
   }
   setVoxel() {
     helpers.setVoxel(
@@ -17,6 +21,12 @@ export default class Main extends React.Component {
       this.refs.token.value,
       this.refs.x.value, this.refs.y.value, this.refs.z.value,
       255, 255, 255);
+  }
+  clear() {
+    helpers.background(
+      this.refs.device.value,
+      this.refs.token.value,
+      0, 0, 0);
   }
   save() {
     localStorage.setItem('device', this.refs.device.value);
@@ -30,8 +40,6 @@ export default class Main extends React.Component {
       0, 0, 0);
   }
   render() {
-    let device = localStorage.getItem('device') || '';
-    let token = localStorage.getItem('token') || '';
     return (
       <div>
         Set voxel
@@ -42,6 +50,7 @@ export default class Main extends React.Component {
         <div>z <input ref="z" defaultValue="4"></input></div>
         <div><button onClick={this.setVoxel}>Set</button></div>
         <div><button onClick={this.unsetVoxel}>Unset</button></div>
+        <div><button onClick={this.clear}>Clear</button></div>
         <div><button onClick={this.save}>Save device</button></div>
       </div>
     );
@@ -77,9 +86,12 @@ function cubeSetup() {
       for (let k = 0; k < 8; k++) {
         const cube = new THREE.Mesh(
           geometry,
-          new THREE.MeshLambertMaterial( { color: unselectedColor } ));
+          new THREE.MeshLambertMaterial( { 
+            color: unselectedColor, 
+            reflectivity: 1.0} ));
         cube.position.set((-3.5 + i) * 0.5, (-3.5 + j) * 0.5, (-3.5 + k) * 0.5);
         cube.l3dCoord = [i, j, k];
+        cube.set = false;
         cubeOfCubes.add(cube);
       }
     }
@@ -103,8 +115,25 @@ function cubeSetup() {
   function onDocumentMouseUp( event ) {
     event.preventDefault();
     if (INTERSECTED !== null) {
-      console.log('clicked!', INTERSECTED.l3dCoord);
-      INTERSECTED.material.color.setHex( selectedColor );
+      let coord = INTERSECTED.l3dCoord;
+      if (!INTERSECTED.set) {
+        INTERSECTED.material.color.setHex( selectedColor );
+        helpers.setVoxel(
+          device,
+          token,
+          coord[0], coord[1], coord[2],
+          40, 40, 20);
+          INTERSECTED.set = true;
+      } else {
+        INTERSECTED.material.color.setHex( unselectedColor );
+        helpers.setVoxel(
+          device,
+          token,
+          coord[0], coord[1], coord[2],
+          0, 0, 0);
+          INTERSECTED.set = false;
+      }
+
     }
   }
 
