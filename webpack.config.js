@@ -19,7 +19,12 @@ module.exports = {
         query: {
           presets: ['react', 'es2015']
         }
-      }
+      },
+      // TODO: this doesn't work, so loaders in require it is 
+      {
+        include: /node_modules\/three\/examples\/js\/controls\/.*/,
+        loader: 'imports?THREE=three!exports?THREE.OrbitControls'
+      }      
     ]
   },
   plugins: [HTMLWebpackPluginConfig]

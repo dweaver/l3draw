@@ -1,11 +1,14 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const THREE = require('three');
-
+// imports provides THREE to the OrbitControls example
+// exports gets THREE.OrbitControls 
+THREE.OrbitControls = require('imports?THREE=three!exports?THREE.OrbitControls!../../node_modules\/three\/examples\/js\/controls\/OrbitControls');
 const helpers = require('../utils/helpers');
 
 let device = localStorage.getItem('device') || '';
 let token = localStorage.getItem('token') || '';
+
 
 export default class Main extends React.Component {
   constructor() {
@@ -99,6 +102,12 @@ function cubeSetup() {
 
   scene.add(cubeOfCubes);
 
+  const controls = new THREE.OrbitControls( camera, renderer.domElement );
+  //controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.25;
+  controls.enableZoom = false;
+
   const mouse = new THREE.Vector2();
   let INTERSECTED;
   const raycaster = new THREE.Raycaster();
@@ -139,6 +148,7 @@ function cubeSetup() {
 
   function render() {
     requestAnimationFrame(render);
+    controls.update();
     // cubeOfCubes.rotation.x += 0.001;
     // cubeOfCubes.rotation.y += 0.001;
     // cubeOfCubes.rotation.z += 0.001;
