@@ -12,6 +12,7 @@ $ npm run dev
 
 ### TODO
 
+- add another light source
 - add menu (http://mrdoob.com/projects/voxels)
-- add press + drag camera (http://mrdoob.com/projects/voxels)
 - add color selection
+- fix toggle voxel when dragging
