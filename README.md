@@ -7,7 +7,9 @@ $ npm install
 $ npm run dev
 ```
 
-![L3D Drawing Canvas Screenshot](/images/l3draw.png "L3D Drawing Canvas")
+In the browser console, run `localStorage.setItem('device', <serial number>)` to select the device to interact with.
+
+![L3D Drawing Canvas Screenshot](/images/l3draw.png "L3D Drawing Canvas" =250x)
 
 
 ### TODO

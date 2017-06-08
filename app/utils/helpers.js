@@ -3,27 +3,28 @@ import axios from 'axios';
 import querystring from 'querystring';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.baseURL = 'https://l3d-fun.apps.exosite-dev.io';
+axios.defaults.baseURL = 'https://l3d.apps.exosite.io';
 
-/*curl https://api.particle.io/v1/devices/53ff70066678505529312367/setVoxel -d access_token='943a315bb5e0f0a78c7cd8975df7f52c6c4a6bc9' -d params='6,6,6,30,30,255'
-{
-  "id": "53ff70066678505529312367",
-  "last_app": "",
-  "connected": true,
-  "return_value": 1
-}*/
-
-export function setVoxel(device, token, x, y, z, r, g, b) {
-  axios.post(`/voxel`, JSON.stringify({
-    voxel: [x, y, z, r, g, b].join(','),
-  })).then((todo) => log.info('posted.', todo)
+export function setVoxels(device, voxels) {
+  // set an array of voxels
+  // voxels is like this: [{x: 0, y: 0, z: 0, color: 1}]
+  axios.post(`/l3d/${device}/voxels`, JSON.stringify({
+    voxels: voxels,
+  })).then(() => log.info('posted.')
   ).catch((error) => log.error('error', error));
 }
 
-export function background(device, token, r, g, b) {
+export function setVoxel(device, x, y, z, r, g, b) {
+  axios.post(`/l3d/${device}/voxel`, JSON.stringify({
+    voxel: [x, y, z, r, g, b].join(','),
+  })).then(() => log.info('posted.')
+  ).catch((error) => log.error('error', error));
+}
+
+export function background(device, r, g, b) {
   axios.post(`/v1/devices/${device}/background`, querystring.stringify({
     access_token: token,
     params: [r, g, b].join(','),
-  })).then((todo) => log.info('posted.', todo)
+  })).then(() => log.info('posted.')
   ).catch((error) => log.error('error', error));
 }
