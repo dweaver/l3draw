@@ -144,7 +144,7 @@ function cubeSetup() {
       voxels.push({x, y, z, color});
     }
   }
-  const YELLOW = '1';
+  const YELLOW = 'c';
   function onDocumentMouseUp( event ) {
     event.preventDefault();
     if (INTERSECTED !== null) {

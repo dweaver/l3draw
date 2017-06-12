@@ -20,30 +20,19 @@ colorIndex = 1
 for n=1,512 do
   color = '0'
   item = string.lower(colors[colorIndex])
-  if item == '0' or item == 'black' then 
-    color = '0'
-  elseif item == '1' or item == 'red' then 
-    color = '1'
-  elseif item == '2' or item == 'green' then 
-    color = '2'
-  elseif item == '3' or item == 'blue' then 
-    color = '3'
-  elseif item == '4' or item == 'yellow' then 
-    color = '4'
-  elseif item == '5' or item == 'cyan' or item == 'lightblue' then 
-    color = '5'
-  elseif item == '6' or item == 'magenta' or item == 'purple' then 
-    color = '6'
-  elseif item == '7' or item == 'gray' or item == 'grey' then 
-    color = '7'
-  elseif item == '8' or item == 'orange' then 
-    color = '8'
-  elseif item == '9' or item == 'exoblue' then 
-    color = '9'
-  elseif item == 'a' or item == 'exonavy' then 
-    color = 'a'
-  elseif item == 'b' or item == 'exogray' or item == 'exogrey' then 
-    color = 'b'
+  if item == '0' or item == 'black' then color = '0'
+  elseif item == '1' or item == 'red' then color = '1'
+  elseif item == '2' or item == 'green' then color = '2'
+  elseif item == '3' or item == 'blue' then color = '3'
+  elseif item == '4' or item == 'yellow' then color = '4'
+  elseif item == '5' or item == 'cyan' or item == 'lightblue' then color = '5'
+  elseif item == '6' or item == 'magenta' or item == 'purple' then color = '6'
+  elseif item == '7' or item == 'gray' or item == 'grey' then color = '7'
+  elseif item == '8' or item == 'orange' then color = '8'
+  elseif item == '9' or item == 'exoblue' then color = '9'
+  elseif item == 'a' or item == 'exonavy' then color = 'a'
+  elseif item == 'b' or item == 'exogray' or item == 'exogrey' then color = 'b'
+  elseif item == 'c' or item == 'white' then color = 'c'
   else 
     color = '0'
   end

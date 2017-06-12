@@ -12,7 +12,7 @@ end
 
 -- for each voxel, set the appropriate location in the table
 for _,voxel in ipairs(request.body.voxels) do
-  voxtable[voxel.x + voxel.y * 8 + voxel.z * 64] = voxel.color
+  voxtable[1 + voxel.z + voxel.y * 8 + voxel.x * 64] = voxel.color
 end
 
 voxels = table.concat(voxtable, "")
